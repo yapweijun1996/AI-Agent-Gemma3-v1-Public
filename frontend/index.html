@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>AI Agent Messenger</title>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<div class="chat-container">
+			<header class="messenger-header">
+				<div class="avatar"><i data-feather="cpu"></i></div>
+				<span class="chat-title">AI Agent</span>
+				<div class="header-settings">
+					<button id="logDropdownBtn" aria-label="Log and settings" title="Log and settings"><i data-feather="settings"></i></button>
+					<div id="logDropdown" role="menu" aria-label="Log controls">
+						<button id="toggleLogDropdownBtn" aria-label="Show or hide process log"><i data-feather="clipboard"></i> Show Process Log</button>
+						<button id="copyLogDropdownBtn" aria-label="Copy log"><i data-feather="copy"></i> Copy Log</button>
+					</div>
+				</div>
+			</header>
+			<main id="messages" aria-live="polite"></main>
+			<footer class="input-bar">
+				<div class="input-wrapper">
+					<input type="text" id="userInput" placeholder="Type your message..." autocomplete="off" aria-label="Type your message" />
+					<button id="sendButton" aria-label="Send message"><i data-feather="send"></i></button>
+					<button id="clearChatButton" aria-label="Clear chat"><i data-feather="trash-2"></i></button>
+				</div>
+			</footer>
+		</div>
+		<div id="processLog" class="overlay" role="dialog" aria-modal="true" aria-labelledby="processLogTitle">
+			<div class="log-panel">
+				<div class="log-header">
+					<div class="log-header-top">
+						<div id="processLogTitle" class="log-title">Agent Process Log</div>
+						<button id="copyLogBtn" aria-label="Copy log" class="header-copy-btn"><i data-feather="copy"></i></button>
+						<button id="closeLogPanelBtn" title="Close log panel"><i data-feather="x"></i></button>
+					</div>
+				</div>
+				<div id="log-content" class="log-content"></div>
+			</div>
+		</div>
+		<div id="copyToast">Log copied to clipboard!</div>
+		
+		<!-- Include Marked library from CDN -->
+		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/dompurify@2.3.10/dist/purify.min.js"></script>
+		<script src="app.js"></script>
+		
+		<!-- Feather Icons -->
+		<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+		<script>document.addEventListener('DOMContentLoaded', ()=>feather.replace());</script>
+		
+		<!-- Clear Chat Confirmation Modal -->
+		<div id="clearConfirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="clearConfirmTitle" hidden>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 id="clearConfirmTitle">Confirm Clear Chat</h2>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to clear the chat history?</p>
+				</div>
+				<div class="modal-footer">
+					<button id="confirmClearBtn">Yes</button>
+					<button id="cancelClearBtn">No</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

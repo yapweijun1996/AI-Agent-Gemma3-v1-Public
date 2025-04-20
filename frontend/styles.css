@@ -1,0 +1,646 @@
+/* WhatsApp-style Chat CSS */
+
+/* Page Background */
+body, .chat-container {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: #ECE5DD;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Responsive Container (refined) */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #ECE5DD;
+}
+
+p{
+  margin:0px;
+}
+
+.chat-container {
+  margin: 0 auto; /* center horizontally */
+  width: 100%;
+  max-width: 100vw;
+  height: 100vh;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 8px 8px 0 0;
+}
+@media (max-width: 600px) {
+  .chat-container {
+    margin: 0;
+    max-width: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* Header */
+.messenger-header {
+  position: sticky;
+  box-sizing: border-box;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  background: #075E54;
+  color: #FFFFFF;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.messenger-header .avatar {
+  background: transparent;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.chat-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.header-settings {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  padding-right: 0px;
+}
+.header-settings button {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-size: 0;
+  cursor: pointer;
+}
+
+/* Message List */
+#messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #ECE5DD;
+}
+.message-row {
+  display: flex;
+  margin: 6px 0;
+  align-items: flex-end;
+}
+.message-row.user-row {
+  justify-content: flex-end;
+}
+.message-row.agent-row {
+  justify-content: flex-start;
+}
+
+/* Chat Bubbles */
+.message {
+  display: inline-block;
+  max-width: 75%;
+  padding: 8px 12px;
+  line-height: 1.4;
+  word-break: break-word;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.message.user {
+  background: #DCF8C6;
+  color: #000;
+  border-radius: 16px 16px 0 16px;
+  margin-left: 8px;
+}
+.message.agent {
+  background: #FFFFFF;
+  color: #000;
+  border-radius: 16px 16px 16px 0;
+  margin-right: 8px;
+}
+
+/* Input Bar */
+.input-bar {
+  box-sizing: border-box;
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background: #F0F0F0;
+}
+
+/* Adjust input-wrapper gutter */
+.input-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px; /* add horizontal gutter so icons not flush */
+  background: #F0F0F0; /* match input bar bg */
+  border-radius: 24px;
+  margin: 4px 0;
+  width: 100%;
+}
+.message.system{
+  background: #1ab927;
+  color: #fff;
+  border-radius: 16px 16px 16px 16px;
+  margin-left: 15px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 8px;
+}
+/* Input: full width, inset inside bar */
+#userInput {
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid #dbdbdb;
+  border-radius: 20px;
+  padding: 12px;
+  font-size: 1rem;
+  color: #333;
+  width: 100%;
+
+}
+#userInput::placeholder {
+  color: #666; /* Darkened to improve contrast */
+}
+#userInput:focus {
+  outline: none;
+}
+
+/* Icon buttons: larger tap area & focus style */
+.input-wrapper button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 8px;
+  border-radius: 50%;
+}
+.input-wrapper button:focus {
+  outline: 2px solid #128C7E;
+}
+
+/* Refine button styling in grid */
+#sendButton {
+  color: #075E54;
+}
+#sendButton:hover {
+  color: #128C7E;
+}
+#clearChatButton {
+  color: #555;
+}
+#clearChatButton:hover {
+  color: #000;
+}
+
+/* Scrollbar Style for messages */
+#messages::-webkit-scrollbar {
+  width: 6px;
+}
+#messages::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+/* Process Log Overlay Container */
+#processLog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  display: none;
+}
+#processLog.show {
+  display: block;
+}
+
+/* Semi-transparent backdrop when visible */
+#processLog.show::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 201;
+}
+
+/* Inner log panel centered above input bar */
+#processLog .log-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 20px;
+  background: #f8fafc;
+  color: #334155;
+  font-size: 14px;
+  padding: 0px;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.32);
+  max-width: 95vw;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  z-index: 202;
+  border-radius: 10px;
+}
+
+/* Header Settings Dropdown */
+#logDropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #FFFFFF;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+  min-width: 180px;
+}
+#logDropdown.show {
+  display: block;
+}
+#logDropdown button {
+  background: none;
+  border: none;
+  color: #075E54;
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+#logDropdown button:hover {
+  background: #F0F0F0;
+}
+
+/* Fine-tune spacing at narrow widths */
+@media (max-width: 400px) {
+  #userInput {
+    padding-right: 70px; /* smaller padding for icons */
+  }
+  #sendButton {
+    right: 36px;
+  }
+}
+
+/* Adjust thinking-hint placement inside input */
+.thinking-hint {
+  position: absolute;
+  left: 14px;           /* align with input padding */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  color: #3b82f6;
+  display: none;
+}
+#userInput.thinking + .thinking-hint {
+  display: block;
+}
+
+/* Glassmorphic overlay effect */
+#processLog.show {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.3);
+}
+
+/* Slide-in animation for log panel */
+@keyframes slideIn {
+  from { transform: translateY(50px) scale(0.9); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+#processLog .log-panel {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Improved Log Content Styling */
+/* Make the content area stand out and entries look like cards */
+#processLog .log-content {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Log entry cards */
+.log-entry {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 16px 12px 32px;
+  margin-bottom: 12px;
+  background: #fefefe;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Colored timeline dot */
+.log-entry::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Timestamp styling */
+.log-timestamp {
+  flex-shrink: 0;
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin-right: 12px;
+}
+
+/* Step/badge styling */
+.log-step {
+  font-weight: 600;
+  color: #334155;
+  margin-right: 8px;
+  width: 82px;
+  font-size: 10px;
+}
+
+/* Message text styling */
+.log-message {
+  flex: 1;
+  color: #475569;
+  font-size: 11px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Reduce last entry margin */
+.log-entry:last-child {
+  margin-bottom: 0;
+}
+
+/* Color-coded badges based on step type */
+.log-entry[data-type="Tool Selection"]::before { background: #3b82f6; }
+.log-entry[data-type="Tool Selected"]::before  { background: #8b5cf6; }
+.log-entry[data-type="Tool Execution"]::before { background: #10b981; }
+.log-entry[data-type="Tool Result"]::before    { background: #f59e0b; }
+.log-entry[data-type="Result Check"]::before   { background: #ef4444; }
+.log-entry[data-type="Final Response"]::before { background: #14b8a6; }
+
+/* Style the log panel action buttons */
+.log-actions {
+  text-align: right;
+  margin-top: 12px;
+}
+.log-actions button {
+  background: transparent;
+  border: none;
+  color: #075E54;
+  font-size: 0.95rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.log-actions button:hover {
+  background: #F0F0F0;
+}
+
+/* Style the log header for better UX */
+#processLog .log-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  background: #075e54;
+  color: #ffffff;
+  padding: 12px 16px;
+}
+#processLog .log-header-top {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  /* ensures title on left, copy and close aligned to right */
+}
+#processLogTitle {
+  font-size: 1rem;
+  font-weight: 600;
+}
+#closeLogPanelBtn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+#closeLogPanelBtn:hover {
+  background: rgba(255,255,255,0.2);
+}
+/* Divider under header */
+#processLog .log-header {
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Style the copy button in log header */
+.header-copy-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 8px;
+  padding: 4px;
+  border-radius: 4px;
+}
+.header-copy-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Push the close icon to the far right */
+#processLog .log-header-top #closeLogPanelBtn {
+  margin-left: auto;
+}
+
+/* Let title flex to push icons to the right */
+#processLog .log-title {
+  flex: 1;
+}
+/* Space out the close and copy icons */
+#closeLogPanelBtn,
+.header-copy-btn {
+  margin-left: 8px;
+}
+
+/* remove previous flex styles */
+.log-header-top {
+  margin: 0;
+  padding: 0;
+}
+
+/* Toast notification for copy log */
+#copyToast {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 300;
+}
+#copyToast.show {
+  opacity: 1;
+}
+
+/* Clear Chat Confirmation Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+}
+.modal[hidden] {
+  display: none;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 90%;
+  width: 320px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+.modal-header,
+.modal-body,
+.modal-footer {
+  padding: 16px;
+}
+.modal-header {
+  border-bottom: 1px solid #eee;
+}
+.modal-body {
+  font-size: 0.95rem;
+  color: #333;
+}
+.modal-footer {
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.modal-footer button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.modal-footer #confirmClearBtn {
+  background: #d9534f;
+  color: #fff;
+}
+.modal-footer #cancelClearBtn {
+  background: #6c757d;
+  color: #fff;
+}
+
+/* Timestamp under messages */
+.timestamp {
+  font-size: 0.7rem;
+  color: #666;
+  align-self: flex-end;
+  margin: 0 8px;
+}
+
+/* Message Avatars */
+.message-row .avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 8px;
+  flex-shrink: 0;
+  background: transparent;
+  padding: 0;
+}
+/* Adjust avatar margin for user vs agent */
+.message-row.user-row .avatar {
+  margin: 0 8px 0 8px;
+  color: #128C7E; /* user avatar icon color */
+}
+.message-row.agent-row .avatar {
+  margin: 0 8px 0 8px;
+  color: #075E54; /* agent avatar icon color */
+}
+/* Ensure avatar SVG icons use currentColor */
+.message-row .avatar svg {
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Style header control icons */
+.header-settings button svg {
+  width: 24px;
+  height: 24px;
+  stroke: #FFFFFF;
+  stroke-width: 2;
+}
+
+/* Style input-wrapper icons */
+.input-wrapper button svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+/* Animated typing indicator dots */
+.message.typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+}
+.message.typing .dot {
+  width: 6px;
+  height: 6px;
+  background: #666;
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: blink 1.4s infinite both;
+}
+.message.typing .dot:nth-child(1) {
+  animation-delay: 0s;
+}
+.message.typing .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.message.typing .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0.4; }
+  40% { opacity: 1; }
+} 

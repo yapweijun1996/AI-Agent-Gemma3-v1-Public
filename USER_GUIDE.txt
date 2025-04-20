@@ -1,0 +1,101 @@
+# AI-Agent-Gemma-v1 User Guide
+
+## Overview
+AI-Agent-Gemma-v1 is a local generative AI assistant that provides step-by-step reasoning via a WebSocket chat interface. It consists of a Node.js backend (Express + WebSocket) and a static HTML/CSS/JS frontend.
+
+## Prerequisites
+- Node.js v18.x or later
+- npm v8.x or later (bundled with Node.js)
+- Git
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/AI-Agent-Gemma-v1.git
+   cd AI-Agent-Gemma-v1
+   ```
+
+2. Install backend dependencies:
+
+   ```bash
+   cd backend
+   npm install
+   ```
+
+3. (Optional) No additional setup is required for the frontend; it is served statically by the backend.
+
+## Configuration
+
+Create a `.env` file in the project root (`AI-Agent-Gemma-v1/.env`) with the following keys:
+
+```ini
+# API Keys
+GEMINI_API_KEY=your_primary_google_generative_api_key
+GEMINI_API_KEY2=your_secondary_google_generative_api_key   # optional fallback
+OPENAI_API_KEY=your_openai_api_key                         # optional for OpenAI tools
+WEATHER_API_KEY=your_weather_api_key                       # optional, used by the weather tool
+
+# Server Settings
+PORT=3004                # optional, defaults to 3004
+LOG_LEVEL=info           # optional, set to debug/info/warn/error
+
+# Model Settings
+DEFAULT_MODEL=gemma-3-27b-it       # optional, fallback is gemini-1.5-flash
+FALLBACK_MODEL=gemini-1.5-flash    # optional
+
+# Tool Settings
+WEB_SEARCH_ENABLED=true    # optional, set false to disable
+SEARCH_TIMEOUT=15000       # optional, in milliseconds
+```
+
+> Note: Only `GEMINI_API_KEY` is required. All other variables are optional.
+
+## Running the Project
+
+1. Start the backend server:
+
+   ```bash
+   cd backend
+   node server.js
+   ```
+
+   You should see:
+   ```
+   HTTP server listening on port 3004
+   ```
+
+2. Open your browser and navigate to:
+
+   ```
+   http://localhost:3004
+   ```
+
+The frontend chat interface should load. Type your messages and interact with the AI Agent in real time.
+
+## Usage Tips
+
+- **Send Message**: Type in the input box and press the send button.
+- **Clear Chat**: Click the trash icon or "Clear Chat" button to reset the conversation.
+- **Process Log**: Click the settings (gear) icon, then "Show Process Log" to view detailed reasoning steps.
+- **Copy Log**: Use the copy icons to copy conversation or logs to the clipboard.
+
+## Troubleshooting
+
+- **Server Not Starting**: Ensure your `.env` file is correctly formatted and that `GEMINI_API_KEY` is valid.
+- **Missing Dependencies**: Run `npm install` inside the `backend` directory.
+- **Port Conflicts**: Change the `PORT` variable in `.env` if port 3004 is in use.
+- **Verbose Logs**: Set `LOG_LEVEL=debug` in `.env` for additional output.
+
+To stop the server, press **Ctrl+C** in the terminal.
+
+## Contributing
+
+Report issues or submit pull requests at the GitHub repository:
+
+```
+https://github.com/yourusername/AI-Agent-Gemma-v1
+```
+
+Enjoy using AI-Agent-Gemma-v1! 
