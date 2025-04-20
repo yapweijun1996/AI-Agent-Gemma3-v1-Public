@@ -87,4 +87,5 @@ Contributions are welcome! Fork the repository, create a feature branch, and sub
 ## License
 This project is licensed under the MIT License. See [LICENSE](LICENSE.md) for details. 
 
+## Screenshot
 <img width="1440" alt="Screenshot 2025-04-20 at 9 14 01 PM" src="https://github.com/user-attachments/assets/811d9de6-8324-4e44-88c6-2b5d24ee1b2e" />
